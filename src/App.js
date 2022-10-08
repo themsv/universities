@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import Universities from "./components/universities.component";
 
 function App() {
+  const [searchText, setSearchText] = useState("");
+  const [isFetchData, setIsFetchData] = useState(false);
+
+  const searchHandler = (event) => {
+    setSearchText(event.target.value);
+    setIsFetchData(false);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <label htmlFor="searchBox">Search Country</label>
+      <input type="search" value={searchText} onChange={searchHandler} />
+      <button onClick={() => setIsFetchData(true)}>Fetch Data</button>
+      <Universities searchText={searchText} isFetchData={isFetchData} />
+    </main>
   );
 }
 
